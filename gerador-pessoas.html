@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador Pessoas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" 
+        integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" 
+        crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="pure-g">
+        <div class="pure-u-1-5"><p></p></div>
+        <div class="pure-u-3-5">
+            <h1>Gerador de Dados Aleatórios de Pessoas</h1>
+        <h2>Dados para apoiar análise, teste e desenvolvimento</h2>
+        <form>
+            <button type="submit" class="pure-button pure-button-primary">Gerar dados simulados de 10 pessoas </button>
+        </form>
+
+            <hr>
+
+        </div>
+            
+            <div class="pure-u-1-5"><p></p></div>
+            <hr>
+        </div>
+        <div>  
+        
+        <div class="pure-g">
+                <div class="pure-u-1-24 yellow">  </div>
+                <div class="pure-u-22-24">
+                    <table class="pure-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Sobrenome</th>
+                            <th>Gênero</th>
+                            <th>Data Nascimento</th>
+                            <th>CPF</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody id="myDIV"></tbody>
+                </table>
+                </div>
+
+                <div class="pure-u-1-24 yellow">  </div>
+        </div>
+        
+        <hr>
+        
+        <div class="pure-g">
+            <div class="pure-u-1-24 yellow"></div>
+            <div class="pure-u-22-24">
+
+                <button class="pure-button" onclick='createFile()'>Baixar Dados</button>
+
+            </div>
+            <div class="pure-u-1-24 yellow"></div>
+        </div>
+        
+            
+    </div>  
+
+</body>
+<script src="dados.js"></script>
+<script src="gerador-pessoa.js"></script>
+<script src="cria-arquivo.js"></script>
+
+<script>
+    for(i=0;i<lista_pessoas.length; i++){
+        const para = document.createElement("tr");
+        contador = i + 1
+        info = "<td>"+ contador +"</td><td>" +
+            lista_pessoas[i].nome + "</td><td>" +
+            lista_pessoas[i].sobrenome + "</td><td>" +
+            lista_pessoas[i].genero +"</td><td>" + lista_pessoas[i].data_nascimento +"</td><td>" +
+            lista_pessoas[i].cpf + "</td>";
+        para.innerHTML =  info
+        document.getElementById("myDIV").appendChild(para);    
+    }
+
+
+    console.log(lista_pessoas)
+</script>
+
+</html>
