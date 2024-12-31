@@ -46,7 +46,9 @@
                             <th>Sobrenome</th>
                             <th>Gênero</th>
                             <th>Data Nascimento</th>
+                            <th>Grupo Sanguineo</th>
                             <th>CPF</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     
@@ -84,8 +86,11 @@
         info = "<td>"+ contador +"</td><td>" +
             lista_pessoas[i].nome + "</td><td>" +
             lista_pessoas[i].sobrenome + "</td><td>" +
-            lista_pessoas[i].genero +"</td><td>" + lista_pessoas[i].data_nascimento +"</td><td>" +
-            lista_pessoas[i].cpf + "</td>";
+            lista_pessoas[i].genero +"</td><td>" +
+            lista_pessoas[i].data_nascimento +"</td><td>" +
+            lista_pessoas[i].grupo_sanguineo + "</td><td>" +
+            lista_pessoas[i].cpf + "</td><td>" +
+            lista_pessoas[i].estado_nascimento + "</td>"
         para.innerHTML =  info
         document.getElementById("myDIV").appendChild(para);    
     }
