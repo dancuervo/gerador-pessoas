@@ -30,46 +30,63 @@ sobrenomePessoa = function(nomes){
     return sobrenome
 }
 /*idade*/
-function ano (){
-    anoAleatorio = randomIntFromInterval(1924,2024)
-    if(  anoAleatorio < 1954 ){
-        anoAleatorio = randomIntFromInterval(1924,2024)
+function dataNascimento(genero) {
+    if (genero !== "masculino" && genero !== "feminino") {
+        throw new Error("O parâmetro 'genero' deve ser 'masculino' ou 'feminino'.");
     }
-    else{
-        if(anoAleatorio  % 2 == 0 && anoAleatorio < 1954){
-            anoAleatorio = randomIntFromInterval(1924,2024)
+
+    // Faixas etárias e probabilidades aproximadas para homens e mulheres no Brasil
+    const distribuicaoIdade = {
+        masculino: [
+            { faixa: [0, 14], probabilidade: 23.5 },
+            { faixa: [15, 24], probabilidade: 15.4 },
+            { faixa: [25, 39], probabilidade: 25.3 },
+            { faixa: [40, 59], probabilidade: 25.8 },
+            { faixa: [60, 100], probabilidade: 10.0 }
+        ],
+        feminino: [
+            { faixa: [0, 14], probabilidade: 21.8 },
+            { faixa: [15, 24], probabilidade: 14.3 },
+            { faixa: [25, 39], probabilidade: 23.8 },
+            { faixa: [40, 59], probabilidade: 25.7 },
+            { faixa: [60, 100], probabilidade: 14.4 }
+        ]
+    };
+
+    // Selecionar a distribuição com base no gênero
+    const distribuicao = genero === "masculino" ? distribuicaoIdade.masculino : distribuicaoIdade.feminino;
+
+    // Gerar um número aleatório para decidir a faixa etária
+    const totalProbabilidade = distribuicao.reduce((acc, curr) => acc + curr.probabilidade, 0);
+    const random = Math.random() * totalProbabilidade;
+
+    let faixaEtaria;
+    let acumulado = 0;
+    for (const faixa of distribuicao) {
+        acumulado += faixa.probabilidade;
+        if (random <= acumulado) {
+            faixaEtaria = faixa.faixa;
+            break;
         }
     }
-    if (anoAleatorio < 1974){
-        anoAleatorio = randomIntFromInterval(1924,2024)
-    }else{
-        anoAleatorio = randomIntFromInterval(1924,2024) + 10
-    }
-   return anoAleatorio
+
+    // Determinar um ano de nascimento aleatório com base na faixa etária
+    const anoAtual = new Date().getFullYear();
+    const idadeMinima = faixaEtaria[0];
+    const idadeMaxima = faixaEtaria[1];
+    const anoNascimento = anoAtual - randomIntFromInterval(idadeMinima, idadeMaxima);
+
+    // Gerar dia e mês aleatórios
+    const dia = randomIntFromInterval(1, 28); // Evitar problemas com fevereiro
+    const mes = randomIntFromInterval(1, 12);
+
+    // Formatar a data
+    return `${String(dia).padStart(2, "0")}/${String(mes).padStart(2, "0")}/${anoNascimento}`;
 }
 
-function mes (){
-    return randomIntFromInterval(1,12)
-}
 
-function dia(){
-    diaAleatorio = 1
 
-    if(mes == 4 || mes == 6 || mes == 8 || mes == 11){
-        diaAleatorio = randomIntFromInterval(1,30)
-    } else{
-        if (mes == 2 && mes % 4 == 0){
-            diaAleatorio = randomIntFromInterval(1,29)
-        } else { 
-            diaAleatorio = randomIntFromInterval(1,28)
-        }
-    }
-    diaAleatorio = randomIntFromInterval(1,31)
-    return diaAleatorio
-}
-function dataNascimento(){
-    return `${dia()}/${mes()}/${ano()}`
-}
+
 /*CPF*/
 function cpf(){
     numCpf = ""
@@ -193,7 +210,7 @@ for(let i=0;i<10;i++){
     lista_pessoas.push( {   "nome": pessoa[0],
                             "genero":pessoa[1],
                             "sobrenome": sobrenomePessoa(nomes),
-                            "data_nascimento": dataNascimento(),
+                            "data_nascimento": dataNascimento(pessoa[1]),
                             "grupo_sanguineo": gerarTipoSanguineo(),
                             "cpf": cpf(),
                             "estado_nascimento": estadoNascimento()
