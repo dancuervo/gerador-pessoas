@@ -2,8 +2,12 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Daniel Cenoz">
+    <meta name="description" content="Descubra geradores de dados aleatórios para desenvolvedores, criados por Daniel Cenoz. Ferramentas práticas para gerar números, textos, e datasets para projetos de ciência de dados!">
+    <meta name="keywords" content="gerador de dados, dados aleatórios, ferramentas para desenvolvedores, gerador de números, gerador de textos, Daniel Cenoz">
+    <meta name="robots" content="index, follow">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -48,7 +52,10 @@
                             <th>Data Nascimento</th>
                             <th>Grupo Sanguineo</th>
                             <th>CPF</th>
+                            <th>Idade</th>
                             <th>Estado</th>
+                            <th>Celular</th>
+                            <th>Probabilidades de Doenças</th>
                         </tr>
                     </thead>
                     
@@ -78,8 +85,8 @@
 <script src="dados.js"></script>
 <script src="gerador-pessoa.js"></script>
 <script src="cria-arquivo.js"></script>
-
 <script>
+
     for(i=0;i<lista_pessoas.length; i++){
         const para = document.createElement("tr");
         contador = i + 1
@@ -90,13 +97,24 @@
             lista_pessoas[i].data_nascimento +"</td><td>" +
             lista_pessoas[i].grupo_sanguineo + "</td><td>" +
             lista_pessoas[i].cpf + "</td><td>" +
-            lista_pessoas[i].estado_nascimento + "</td>"
+            lista_pessoas[i].idade + "</td><td>" +
+            lista_pessoas[i].estado_nascimento + "</td><td>" +
+            lista_pessoas[i].celular + "</td><td>" +    
+        
+                lista_pessoas[i].possiveis_doencas[0].nome + ": " + lista_pessoas[i].possiveis_doencas[0].probabilidade + "%" + 
+               "<br>" + lista_pessoas[i].possiveis_doencas[1].nome + ": " + lista_pessoas[i].possiveis_doencas[1].probabilidade + "%" + 
+               "<br>" + lista_pessoas[i].possiveis_doencas[2].nome + ": " + lista_pessoas[i].possiveis_doencas[2].probabilidade + "%" +
+               
+            "</td>"
+                "</td>"
+         
+        info = info + "</td>"      
         para.innerHTML =  info
-        document.getElementById("myDIV").appendChild(para);    
+        document.getElementById("myDIV").appendChild(para);
+        
+
     }
-
-
-    console.log(lista_pessoas)
+    
 </script>
 
 </html>
